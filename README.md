@@ -108,7 +108,7 @@ Then, simply:
 | out_dir | Specifies output directory |
 | chunk_size | specifies chunk side length in px |
 | n_workers | specifies amount of workers for parallel chunk processing |
-| memory_limit | specifies emory limit per worker (depends on number of stacked tiles) |
+| memory_limit | specifies memory limit per worker (actual amount used depends on number of stacked tiles) |
 | savi_L | specifies the value of L for SAVI analyis |
 | nodata | specifies the value to fill in for pixels with no found data |
 | keep_chunks | if used, program will not delete individual chunks at the end of processing |
