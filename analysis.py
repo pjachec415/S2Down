@@ -594,11 +594,11 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--tiles_dir", type=Path,
-        default=Path("/work_bgfs/h/harrisonjachec/drc_ebola/sentinel2_tiles"),
+        default=Path("/DEFAULT/PATH/TO/TILES"),
     )
     parser.add_argument(
         "--out_dir", type=Path,
-        default=Path("/work_bgfs/h/harrisonjachec/drc_ebola/indices"),
+        default=Path("/DEFAULT/PATH/TO/OUTPUT"),
     )
     parser.add_argument(
         "--chunk_size", type=int, default=4096,
