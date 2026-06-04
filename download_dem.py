@@ -11,7 +11,7 @@ import math
 import requests
 
 # ── Configuration ─────────────────────────────────────────────────────────────
-BASE_DIR = "/work_bgfs/h/harrisonjachec/drc_ebola/sentinel2_tiles"
+BASE_DIR = "/PATH/TO/BASE/DIR"
 DEM_DIR  = os.path.join(BASE_DIR, "DEM")
 
 WEST = 11.6
