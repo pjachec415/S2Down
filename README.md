@@ -1,5 +1,5 @@
 # S2Down
-A pipeline for download, cleaning, and computing standard geospatial analyses (NDVI, 
+A pipeline for downloading tiles, cleaning, and computing standard geospatial analyses (NDVI, 
 NDWI, SAVI, MNDWI, DEM) over large extents without API keys or access credentials.
 
 ## S2Down Contents
