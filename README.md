@@ -1,3 +1,5 @@
+> *For research use only. Not for clinical decisions. Copyright (c) 2026, Payton Jachec*
+
 # S2Down
 A pipeline for downloading tiles, cleaning, and computing standard geospatial analyses (NDVI, 
 NDWI, SAVI, MNDWI, DEM) over large extents without API keys or access credentials.
@@ -119,3 +121,5 @@ All jobs submitted with analysis.py require the following flags: tiles_dir, out_
 ##
 Due to the need to re-specify flags every time this file is run, this script is submitted from the terminal. See example below.
 > ~] $ python3 analysis.py --tiles_dir /PATH/TO/DIRECTORY/sentinel2_tiles --out_dir /PATH/TO/OUTPUT/DIRECTORY --chunk_size 4096 --n_workers 4 --memory_limit 12GB --nodata 0
+
+> *For research use only. Not for clinical decisions. Copyright (c) 2026, Payton Jachec*
