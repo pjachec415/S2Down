@@ -11,8 +11,12 @@ NDWI, SAVI, MNDWI, DEM) over large extents without API keys or access credential
   - Downloads DEM tiles for specified extent.
 - clean_tiles.py
   - Removes or moves unfinished or broken tiles (allows dry-runs).
-- analysis.py
-  - Calculates median value of tiles, mosaics tiles, and performs NDVI, NDWI, MNDWI, SAVI, and DEM modeling.
+- median_composite.py
+  - Collects tiles and computes median mosaic in chunks for resource management.
+- compute_indices.py
+  - collects mosaics from median_composite.py and computes analysis indices.
+- stitch_dem.py
+  - Stitches DEM tiles together.
 - environment.yml
   - Dependencies list for virtual environment.
  
@@ -84,7 +88,7 @@ bands, or timescale, so there are less fields to change in download_dem.py:
 Then, simply:
 > ~] $ python3 download_dem.py
 ### clean_tiles.py
-Similarly to the download files, this file requires you to change some values within it to run properly. 
+Similarly to the download scripts, this script requires you to change some values within it to run properly. 
 | Field | Line | Use |
 | -------- | -------- | -------- |
 | DEFAULT_TILES_DIR | 17 | Changes default master imagery directory |
@@ -102,6 +106,58 @@ Then, simply:
  
    - Validates code before moving all unfinished folders to "incomplete"
 
-### analysis.py
+### median_composite.py
+This script does *not* have a config section and should be submitted with the following flags:
+| Flag | Req./Opt. | Use |
+| -------- | -------- | -------- |
+| --tiles_dir | Req. | Sets path to parent tile directory |
+| --out_dir | Req. | Sets output directory |
+| --chunk_size | Opt. | Sets chunk side length in pixels |
+| --n_workers | Opt. | Sets number of workers for parallel processing |
+| --memory_limit | Opt. | Sets RAM limit *per worker* |
+| --nodata | Opt. | Sets default value for pixels with no data |
+| --scale | Opt. | Sets scale for input images to scale down to 0-1 range |
+| --keep_chunks | Opt. | If used, chunks will not be deleted |
+
+Example submission:
+> ~] $ python3 median_composite.py --tiles_dir /PATH/TO/TILES/DIRECTORY/ --out_dir /PATH/TO/OUTPUT/DIRECTORY/ \
+>      --chunk_size 4096 --n_workers 4 --memory_limit 12GB --nodata 0 --scale 10000 --keep_chunks
+
+### compute_indices.py
+This script computes the analysis indices from the mosaiced images created by median_composite.py
+
+| Field | Line | Use |
+| -------- | -------- | -------- |
+| BAND_PATHS | 14-19 | Sets filepaths to individual band images |
+| OUT_DIR | 23 | Sets output directory |
+| COMPUTE | 26-32 | Selects indices to compute |
+| MNDVI_C1 | 36 | Sets multiplier for MNDVI numerator |
+| MNDVI_C2 | 37 | Sets multiplier for MNDVI denominator |
+| SAVI_L | 40 | Sets SAVI L value |
+| SABI_L | 43 | Sets SABI L value |
+| CHUNK_ROWS | 46 | Sets chunk (row) height | 
+| NODATA_OUT | 47 | Sets value to fill for nodata pixels |
+| CLAMP | 48 | Toggles clamping on/off |
+| COMPRESS | 49 | Sets compression method |
+| OVERWRITE | 50 | Toggles overwriting existing output files |
+
+Then, 
+> ~] $ python3 compute_indicies.py
+
+### stitch_dem.py
+This script stitches the DEM tiles downloaded with download_dem.py together into a composite image.
+
+| Field | Line | Use |
+| -------- | -------- | -------- |
+| DEM_DIR | 22 | Sets DEM tile source directory |
+| OUT_PATH | 25 | Sets output path |
+| NODATA_IN | 28 | Sets default value to fill for NaN pixels on input |
+| NODATA_OUT | 29 | Sets default value to fill for NaN pixels on output |
+| OUT_DTYPE | 33 | Sets output data format |
+| COMPRESS | 36 | Sets compression method |
+| OVERWRITE | 39 | Toggles overwriting of existing files in output directory |
+
+Then,
+> ~] $ python3 stitch_dem.py
 
 > *For research use only. Not for clinical decisions. Copyright (c) 2026, Payton Jachec*
