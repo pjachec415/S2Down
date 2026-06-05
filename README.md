@@ -103,23 +103,5 @@ Then, simply:
    - Validates code before moving all unfinished folders to "incomplete"
 
 ### analysis.py
-**Available Flags**
-| Flag | Use |
-| -------- | -------- |
-| tiles_dir | Specifies tile source directory |
-| out_dir | Specifies output directory |
-| chunk_size | specifies chunk side length in px |
-| n_workers | specifies amount of workers for parallel chunk processing |
-| memory_limit | specifies memory limit per worker (actual amount used depends on number of stacked tiles) |
-| savi_L | specifies the value of L for SAVI analyis |
-| nodata | specifies the value to fill in for pixels with no found data |
-| keep_chunks | if used, program will not delete individual chunks at the end of processing |
-
-**Required Flags**
-
-All jobs submitted with analysis.py require the following flags: tiles_dir, out_dir.
-##
-Due to the need to re-specify flags every time this file is run, this script is submitted from the terminal. See example below.
-> ~] $ python3 analysis.py --tiles_dir /PATH/TO/DIRECTORY/sentinel2_tiles --out_dir /PATH/TO/OUTPUT/DIRECTORY --chunk_size 4096 --n_workers 4 --memory_limit 12GB --nodata 0
 
 > *For research use only. Not for clinical decisions. Copyright (c) 2026, Payton Jachec*
