@@ -1,10 +1,9 @@
-#!/usr/bin/env python3
-"""
-repair_missing_sentinel_bands.py
-
-Finds incomplete Sentinel-2 scene directories and downloads only
-missing bands using Dask.
-"""
+#####################################################################
+# repair_missing_bands.py # Finds and downloads missing band files. #
+# ----------------------------------------------------------------- #
+# (c) Payton Jachec 2026. | harrisonjachec@usf.edu                  #
+# Disclaimer: For research purposes only, not for clinical use.     #
+#####################################################################
 
 import os
 import time
@@ -20,13 +19,21 @@ import requests
 from distributed import Client, LocalCluster
 from rasterio.enums import Resampling
 
-OUTPUT_DIR = "/work_bgfs/h/harrisonjachec/drc_ebola/sentinel2_tiles"
+# -----------------------------------------------------------------
+# CONFIG
+# -----------------------------------------------------------------
+
+OUTPUT_DIR = "/PATH/TO/TILE/DIRECTORY"
 
 BANDS = ["B02", "B03", "B04", "B08", "B11"]
 
-TARGET_RES = 20
-N_WORKERS = 9
-MEMORY_LIMIT = "6GB"
+TARGET_RES = 20   # in M at eq.
+N_WORKERS = 9    
+MEMORY_LIMIT = "6GB"  # per worker, expect 1-2GB overhead per worker
+
+# ----------------------------------------------------------------
+# END CONFIG 
+# ----------------------------------------------------------------
 
 os.makedirs("logs", exist_ok=True)
 
