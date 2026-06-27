@@ -1,10 +1,10 @@
-####################################################
-# clean_tiles.py # Cleans up unfinished tiles.     #
-# ------------------------------------------------ #
-# (c) Payton Jachec 2026. | harrisonjachec@usf.edu #
-# Disclaimer: For research purposes only, not for  #
-# clinical use.                                    #
-####################################################
+#############################################################
+# reproject.py # Reprojects .tif images to new projections. #
+# --------------------------------------------------------- #
+# (c) Payton Jachec 2026. | harrisonjachec@usf.edu          #
+# Disclaimer: For research purposes only, not for clinical  # 
+# use.                                                      #
+#############################################################
 
 import rasterio
 from rasterio.warp import reproject, Resampling
