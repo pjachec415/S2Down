@@ -1,10 +1,18 @@
+####################################################
+# stitch_lulc.py # Stitches LULC tiles by year.    #
+# ------------------------------------------------ #
+# (c) Payton Jachec 2026. | harrisonjachec@usf.edu #
+# Disclaimer: For research purposes only, not for  #
+# clinical use.                                    #
+####################################################
 import glob
 import subprocess
 
-LULC_DIR = "/work_bgfs/h/harrisonjachec/drc_ebola/sentinel2_tiles/LULC"
-OUT_FILE = "/work_bgfs/h/harrisonjachec/drc_ebola/LULC_2022_mosaic.tif"
+LULC_DIR = "/PATH/TO/LULC/TILE/DIRECTORY"
+OUT_FILE = "/PATH/TO/OUTPUT/MOSAIC.tif"
+YEAR = 2022
 
-tiles = sorted(glob.glob(f"{LULC_DIR}/*-2022.tif"))
+tiles = sorted(glob.glob(f"{LULC_DIR}/*-{YEAR}.tif"))
 print(f"Found {len(tiles)} tiles")
 
 subprocess.run([
