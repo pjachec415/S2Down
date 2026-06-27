@@ -1,21 +1,17 @@
-"""
-download_lulc.py
-----------------
-Download Copernicus/Impact Observatory LULC tiles from Planetary Computer
-into a local directory. No resampling or stitching is performed.
-
-Usage
------
-  Edit the CONFIG section below, then:
-      python download_lulc.py
-"""
+####################################################
+# download_lulc.py # Downloads 10m LULC.           #
+# ------------------------------------------------ #
+# (c) Payton Jachec 2026. | harrisonjachec@usf.edu #
+# Disclaimer: For research purposes only, not for  #
+# clinical use.                                    #
+####################################################
 # ══════════════════════════════════════════════════════════════════════════════
 #  CONFIG
 # ══════════════════════════════════════════════════════════════════════════════
-OUTPUT_DIR = "/work_bgfs/h/harrisonjachec/drc_ebola/sentinel2_tiles/LULC"
+OUTPUT_DIR = "/PATH/TO/OUTPUT/DIRECTORY"
 
 # DRC bounding box [west, south, east, north]
-BBOX = [11.6, -14.0, 36.5, 12.75]
+BBOX = [W, S, E, N]
 YEAR = 2023
 
 # Overwrite tiles that already exist on disk
