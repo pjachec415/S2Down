@@ -9,14 +9,22 @@ NDWI, SAVI, MNDWI, DEM) over large extents without API keys or access credential
   - Downloads spectral bands (all except DEM) from planetary-computer for the specified extent.
 - download_dem.py
   - Downloads DEM tiles for specified extent.
+- download_lulc.py
+  - Downloads LULC tiles for specified extent.
 - clean_tiles.py
   - Removes or moves unfinished or broken tiles (allows dry-runs).
+- repair_missing_bands.py
+  - Lists missing band files, and retries downlaods for missing band files until all files are downloaded.
 - median_composite.py
   - Collects tiles and computes median mosaic in chunks for resource management.
 - compute_indices.py
   - collects mosaics from median_composite.py and computes analysis indices.
 - stitch_dem.py
   - Stitches DEM tiles together.
+- stitch_lulc.py
+  - Stitches LULC tiles together.
+- reproject.py
+  - Reprojects harmonized mosaic to a differest projection using another file as a template.
 - environment.yml
   - Dependencies list for virtual environment.
  
@@ -87,6 +95,19 @@ bands, or timescale, so there are less fields to change in download_dem.py:
 
 Then, simply:
 > ~] $ python3 download_dem.py
+
+### download_lulc.py
+Very similar to download_dem.py.
+| Field | Line | Use |
+| -------- | -------- | -------- |
+| OUTPUT_DIR | 11 | Sets output directory |
+| BBOX | 14 | Sets side boundaries of bounding box |
+| YEAR | 15 | Sets year to download |
+| OVERWRITE | 18 | Toggles overwrite permissions for output image |
+
+Then, 
+> ~] $ python3 download_lulc.py
+
 ### clean_tiles.py
 Similarly to the download scripts, this script requires you to change some values within it to run properly. 
 | Field | Line | Use |
@@ -106,8 +127,22 @@ Then, simply:
  
    - Validates code before moving all unfinished folders to "incomplete"
 
+### repair_missing_bands.py
+This script searches for missing band files and redownloads then.
+
+| Field | Line | Use |
+| -------- | -------- | -------- |
+| OUTPUT_DIR | 26 | Sets file path to search for for tiles |
+| BANDS | 28 | Sets band names to search for in each scene folder |
+| TARGET_RES | 30 | Sets target resolution in meters at equator |
+| N_WORKERS | 31 | Sets number of workers for task parallelization |
+| MEMORY_LIMIT | 32 | Sets memory limit per worker |
+
+Then,
+> ~] $ python3 repair_missing_bands.py
+
 ### median_composite.py
-This script does *not* have a config section and should be submitted with the following flags:
+This script should be submitted with the following flags:
 | Flag | Req./Opt. | Use |
 | -------- | -------- | -------- |
 | --tiles_dir | Req. | Sets path to parent tile directory |
@@ -159,5 +194,29 @@ This script stitches the DEM tiles downloaded with download_dem.py together into
 
 Then,
 > ~] $ python3 stitch_dem.py
+
+### stitch_lulc.py
+This script stitches the LULC files downloaded with download_lulc.py together into a composite image.
+
+| Field | Line | Use |
+| -------- | -------- | -------- |
+| LULC_DIR | 11 | Sets source directory for LULC tiles |
+| OUT_FILE | 12 | Sets desired output filepath |
+| YEAR | 13 | sets year to harmonize tiles of a specific year |
+
+Then,
+> ~] $ python3 stitch_lulc.py
+
+### reproject.py
+This script rreprojects an image to another projection using a third file as a format template.
+
+| Line | Use |
+| -------- | -------- |
+| 13 | Sets filepath for image to pull formatting from |
+| 19 | Sets filepath to source file to reproject |
+| 33 | Sets path for output file |
+
+Then,
+> ~] $ python3 reproject.py
 
 > *For research use only. Not for clinical decisions. Copyright (c) 2026, Payton Jachec*
