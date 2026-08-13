@@ -8,17 +8,18 @@
 # ══════════════════════════════════════════════════════════════════════════════
 #  CONFIG
 # ══════════════════════════════════════════════════════════════════════════════
-OUTPUT_DIR = "/PATH/TO/OUTPUT/DIRECTORY"
+OUTPUT_DIR = "./PROJECT_DIRECTORY"
 
-# DRC bounding box [west, south, east, north]
+# bounding box
 BBOX = [W, S, E, N]
-YEAR = 2023
+# Year (Max 2022)
+YEAR = 2022
 
-# Overwrite tiles that already exist on disk
+# Overwrite tiles that already exist
 OVERWRITE = False
-# ══════════════════════════════════════════════════════════════════════════════
+
 #  END CONFIG
-# ══════════════════════════════════════════════════════════════════════════════
+
 import os
 from pathlib import Path
 
@@ -26,11 +27,11 @@ import planetary_computer
 import pystac_client
 import requests
 
-# ── Output directory ──────────────────────────────────────────────────────────
+# ── Output directory 
 out_dir = Path(OUTPUT_DIR)
 out_dir.mkdir(parents=True, exist_ok=True)
 
-# ── Connect to Planetary Computer ─────────────────────────────────────────────
+# ── Connect to Planetary Computer 
 print("\n=== LULC Tile Download ===\n", flush=True)
 print("  Connecting to Planetary Computer...", flush=True)
 
@@ -83,4 +84,4 @@ print(f"\n  Downloaded : {downloaded}", flush=True)
 print(f"  Skipped    : {skipped}", flush=True)
 print(f"  Directory  : {out_dir}", flush=True)
 print(f"  Total size : {total_gb:.2f} GB", flush=True)
-print("\n=== Done ===\n", flush=True)
+print(f"\n=== Download Complete for BBOX {BBOX}. ===\n", flush=True)
